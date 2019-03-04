@@ -11,7 +11,7 @@
 			if (!audio) { return; } // return stops code execution
 			
 
-			console.log(audio);
+			
 			audio.currentTime = 0;
 			audio.play();
 
@@ -23,12 +23,20 @@
 
 
 	function removePlayingClass(event) {
-		debugger;
+		//debugger;
+		
+		if (event.propertyName !== "transform") {
+			return;
+		} else {
+			// remove te playing class here from the activ div
+			console.log('transition done!', `${event.propertyName}`);
+			event.target.classList.remove('playing');
+		}
 	}
 
 	const keys = Array.from(document.querySelectorAll('.keys'));
 
-	keys.forEach(key => key.addEventListener("transitioned", removePlayingClass));
+	keys.forEach(key => key.addEventListener("transitionend", removePlayingClass));
 
 	window.addEventListener("keydown", playDrumKitSound);
 
